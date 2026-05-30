@@ -71,11 +71,11 @@ def handle_messages(message):
         if currency == "BRL":
             multiplier = price / 1000.0
             data_list = BRL_DATA
-            title = f"🇧🇷 **Brl တွက်ချက်မှုရလဒ် (ရောင်းဈေး)**\n💵 အရင်းဈေး: {price:,.0f} MMK\n🔢 1coinဈေး: {multiplier:.4f}MMK\n"
+            title = f"🇧🇷 **Brl တွက်ချက်မှုရလဒ် **\n💵 အရင်းဈေး: {price:,.0f} MMK\n🔢 1coinဈေး: {multiplier:.4f}MMK\n"
         else:
             multiplier = price / 1120.0
             data_list = PHP_DATA
-            title = f"🇵🇭 **PHP တွက်ချက်မှုရလဒ် (ရောင်းဈေး)**\n💵 အရင်းဈေး: {price:,.0f} MMK\n🔢 1Coinဈေး: {multiplier:.4f}MMK\n"
+            title = f"🇵🇭 **PHP တွက်ချက်မှုရလဒ် **\n💵 အရင်းဈေး: {price:,.0f} MMK\n🔢 1Coinဈေး: {multiplier:.4f}MMK\n"
 
         response_text = title + "━━━━━━━━━━━━━━━━━━━━\n"
         for item, coin in data_list:
