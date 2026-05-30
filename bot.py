@@ -72,12 +72,12 @@ def handle_messages(message):
             # အစ်ကို့မူရင်း Formula အတိုင်း ဈေးနှုန်းကို ၁၀၀၀ ဖြင့် စားသည်
             multiplier = price / 1000.0
             data_list = BRL_DATA
-            title = f"🇧🇷 **Brl တွက်ချက်မှုရလဒ် (အမြဲပိုဖြတ်စနစ်)**\n💵 မူရင်းဈေး: {price:,.0f} MMK\n🔢 1coinဈေး: {multiplier:.4f}\n"
+            title = f"🇧🇷 **Brl တွက်ချက်မှုရလဒ် **\n💵 မူရင်းဈေး: {price:,.0f} MMK\n🔢 1coinဈေး: {multiplier:.4f}MMK\n"
         else:
             # အစ်ကို့မူရင်း Formula အတိုင်း ဈေးနှုန်းကို ၁၁၂၀ ဖြင့် စားသည်
             multiplier = price / 1120.0
             data_list = PHP_DATA
-            title = f"🇵🇭 **PHP တွက်ချက်မှုရလဒ် (အမြဲပိုဖြတ်စနစ်)**\n💵 မူရင်းဈေး: {price:,.0f} MMK\n🔢 1Coinဈေး: {multiplier:.4f}\n"
+            title = f"🇵🇭 **PHP တွက်ချက်မှုရလဒ် **\n💵 မူရင်းဈေး: {price:,.0f} MMK\n🔢 1Coinဈေး: {multiplier:.4f}MMK\n"
 
         response_text = title + "━━━━━━━━━━━━━━━━━━━━\n"
         for item, coin in data_list:
