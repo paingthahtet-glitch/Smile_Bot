@@ -87,7 +87,23 @@ def handle_messages(message):
     except ValueError:
         bot.reply_to(message, "❌ ကျေးဇူးပြု၍ ဂဏန်းသီးသန့်သာ ရိုက်ပို့ပေးပါဗျာ။\n(ဥပမာ - 5000)")
 
+# အစ်ကို့ရဲ့ bot.py အောက်ဆုံး စာကြောင်းတွေကို ဒါလေးနဲ့ အစားထိုးပေးပါ
 if __name__ == "__main__":
-    print("Bot Is Starting...")
+    import threading
+    import http.server
+    import socketserver
+
+    # Render ရဲ့ Port Scan အမှားကို ကျော်ဖြတ်ရန် Port အတုတစ်ခု နောက်ကွယ်တွင် ဖွင့်ပေးခြင်း
+    def run_dummy_server():
+        port = int(os.environ.get("PORT", 5000))
+        handler = http.server.SimpleHTTPRequestHandler
+        with socketserver.TCPServer(("0.0.0.0", port), handler) as httpd:
+            httpd.serve_forever()
+
+    # Port ဆာဗာကို Thread အဖြစ် သီးသန့်ပတ်ထားမည်
+    threading.Thread(target=run_dummy_server, daemon=True).start()
+
+    print("Bot Is Starting with Port Bypass...")
     bot.remove_webhook()
     bot.infinity_polling()
+
