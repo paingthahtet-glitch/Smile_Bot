@@ -83,7 +83,7 @@ def handle_messages(message):
             cost_mmk = coin * multiplier  
             
             # ၂။ 💡 အစ်ကိုအလိုရှိသော 5% အမြတ်ကို ပေါင်းထည့်သည်
-            selling_price = cost_mmk * 1.05
+            selling_price = cost_mmk * 1.08
             
             # ၃။ အမြတ်ပေါင်းပြီးသား ရလဒ်ကိုမှ အပေါ်ဂဏန်း ရာပြည့်သို့ ပိုဖြတ်သည် (Ceiling Round)
             # ဥပမာ - တွက်လို့ ၃,၃၁၅ ကျပ် ထွက်လျှင် ဝယ်သူကို ၃,၅၀၀ ဟု တန်းပြပေးပါမည်
