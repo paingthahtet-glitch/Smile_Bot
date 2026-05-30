@@ -1,6 +1,6 @@
 import os
 import telebot
-import math  # အပေါ်ဂဏန်းသို့ အမြဲပိုဖြတ်ရန် math library ထည့်သွင်းထားသည်
+import math  # အပေါ်ဂဏန်းသို့ အမြဲပိုဖြတ်ရန် math library
 from telebot.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 # အစ်ကို့ရဲ့ Bot Token
@@ -69,24 +69,25 @@ def handle_messages(message):
 
         currency = user_status[chat_id]
         if currency == "BRL":
-            # အစ်ကို့မူရင်း Formula အတိုင်း ဈေးနှုန်းကို ၁၀၀၀ ဖြင့် စားသည်
             multiplier = price / 1000.0
             data_list = BRL_DATA
-            title = f"🇧🇷 **Brl တွက်ချက်မှုရလဒ် **\n💵 မူရင်းဈေး: {price:,.0f} MMK\n🔢 1coinဈေး: {multiplier:.4f}MMK\n"
+            title = f"🇧🇷 **Brl တွက်ချက်မှုရလဒ် (ရောင်းဈေး)**\n💵 အရင်းဈေး: {price:,.0f} MMK\n🔢 1coinဈေး: {multiplier:.4f}MMK\n📈 အမြတ်ထည့်သွင်းမှု: +5%\n"
         else:
-            # အစ်ကို့မူရင်း Formula အတိုင်း ဈေးနှုန်းကို ၁၁၂၀ ဖြင့် စားသည်
             multiplier = price / 1120.0
             data_list = PHP_DATA
-            title = f"🇵🇭 **PHP တွက်ချက်မှုရလဒ် **\n💵 မူရင်းဈေး: {price:,.0f} MMK\n🔢 1Coinဈေး: {multiplier:.4f}MMK\n"
+            title = f"🇵🇭 **PHP တွက်ချက်မှုရလဒ် (ရောင်းဈေး)**\n💵 အရင်းဈေး: {price:,.0f} MMK\n🔢 1Coinဈေး: {multiplier:.4f}MMK\n📈 အမြတ်ထည့်သွင်းမှု: +5%\n"
 
         response_text = title + "━━━━━━━━━━━━━━━━━━━━\n"
         for item, coin in data_list:
-            # Coin ပမာဏနှင့် Coin တစ်ခုချင်းစီ၏ တန်ဖိုး (Multiplier) ကို မြှောက်၍ မြန်မာငွေရှာသည်
-            total_mmk = coin * multiplier  
+            # ၁။ အရင်း မြန်မာကျပ်ငွေကို အရင်တွက်ချက်သည်
+            cost_mmk = coin * multiplier  
             
-            # 💡 အမြဲတမ်း အပေါ်ဂဏန်း ရာပြည့်သို့ ပိုဖြတ်မည့် ဖော်မြူလာ (Ceiling Round)
-            # ဥပမာ - ၃,၃၁၅ ကျပ် ဖြစ်နေရင် ၃,၄၀၀ ကျပ် ကွက်တိ တိုးဖြတ်ပေးပါမည်
-            rounded_mmk = math.ceil(total_mmk / 100) * 100
+            # ၂။ 💡 အစ်ကိုအလိုရှိသော 5% အမြတ်ကို ပေါင်းထည့်သည်
+            selling_price = cost_mmk * 1.05
+            
+            # ၃။ အမြတ်ပေါင်းပြီးသား ရလဒ်ကိုမှ အပေါ်ဂဏန်း ရာပြည့်သို့ ပိုဖြတ်သည် (Ceiling Round)
+            # ဥပမာ - တွက်လို့ ၃,၃၁၅ ကျပ် ထွက်လျှင် ဝယ်သူကို ၃,၅၀၀ ဟု တန်းပြပေးပါမည်
+            rounded_mmk = math.ceil(selling_price / 100) * 100
             
             response_text += f"• **{item}** : {rounded_mmk:,.0f} MMK\n"
             
