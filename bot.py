@@ -1,5 +1,6 @@
 import os
 import telebot
+import math  # အပေါ်ဂဏန်းသို့ အမြဲပိုဖြတ်ရန် math library ထည့်သွင်းထားသည်
 from telebot.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 # အစ်ကို့ရဲ့ Bot Token
@@ -68,29 +69,26 @@ def handle_messages(message):
 
         currency = user_status[chat_id]
         if currency == "BRL":
+            # အစ်ကို့မူရင်း Formula အတိုင်း ဈေးနှုန်းကို ၁၀၀၀ ဖြင့် စားသည်
             multiplier = price / 1000.0
             data_list = BRL_DATA
-            title = f"🇧🇷 **Brl တွက်ချက်မှုရလဒ်**\n💵 ဈေးနှုန်း: {price:,.0f} MMK\n🔢 အမြှောက်ဆ: {multiplier:.4f}\n"
+            title = f"🇧🇷 **Brl တွက်ချက်မှုရလဒ် (အမြဲပိုဖြတ်စနစ်)**\n💵 မူရင်းဈေး: {price:,.0f} MMK\n🔢 1coinဈေး: {multiplier:.4f}\n"
         else:
+            # အစ်ကို့မူရင်း Formula အတိုင်း ဈေးနှုန်းကို ၁၁၂၀ ဖြင့် စားသည်
             multiplier = price / 1120.0
             data_list = PHP_DATA
-            title = f"🇵🇭 **PHP တွက်ချက်မှုရလဒ်**\n💵 ဈေးနှုန်း: {price:,.0f} MMK\n🔢 အမြှောက်ဆ: {multiplier:.4f}\n"
+            title = f"🇵🇭 **PHP တွက်ချက်မှုရလဒ် (အမြဲပိုဖြတ်စနစ်)**\n💵 မူရင်းဈေး: {price:,.0f} MMK\n🔢 1Coinဈေး: {multiplier:.4f}\n"
 
-                response_text = title + "━━━━━━━━━━━━━━━━━━━━\n"
+        response_text = title + "━━━━━━━━━━━━━━━━━━━━\n"
         for item, coin in data_list:
-            # ၁။ Coin အစား ကျသင့်မည့် မြန်မာငွေ (MMK) ကို ရှာသည်
-            # (Item ရဲ့ Coin တန်ဖိုးကို အစ်ကိုရိုက်လိုက်တဲ့ ပိုက်ဆံနဲ့ မြှောက်တာပါ)
-            total_mmk = coin * price  
+            # Coin ပမာဏနှင့် Coin တစ်ခုချင်းစီ၏ တန်ဖိုး (Multiplier) ကို မြှောက်၍ မြန်မာငွေရှာသည်
+            total_mmk = coin * multiplier  
             
-            # ၂။ ရာဂဏန်းအထိ ဖြတ်ခြင်း (အနီးစပ်ဆုံး ရာပြည့်ကိန်းဖြစ်အောင် ဝိုင်းပေးခြင်း)
-            # ဥပမာ - ၁၂,၃၄၅ ကျပ် ဖြစ်နေရင် ၁၂,၃၀၀ ဖြစ်သွားပါမည်
-            rounded_mmk = round(total_mmk / 100) * 100
+            # 💡 အမြဲတမ်း အပေါ်ဂဏန်း ရာပြည့်သို့ ပိုဖြတ်မည့် ဖော်မြူလာ (Ceiling Round)
+            # ဥပမာ - ၃,၃၁၅ ကျပ် ဖြစ်နေရင် ၃,၄၀၀ ကျပ် ကွက်တိ တိုးဖြတ်ပေးပါမည်
+            rounded_mmk = math.ceil(total_mmk / 100) * 100
             
-            # ၃။ အဖြေထုတ်မည့် စာသား (Coins အစား MMK လို့ ပြောင်းပြပါမည်)
             response_text += f"• **{item}** : {rounded_mmk:,.0f} MMK\n"
-            
-        response_text += "━━━━━━━━━━━━━━━━━━━━\n🔄 ထပ်မံတွက်ချက်လိုပါက /start ကို ပြန်နှိပ်နိုင်ပါတယ်ဗျာ။"
-
             
         response_text += "━━━━━━━━━━━━━━━━━━━━\n🔄 ထပ်မံတွက်ချက်လိုပါက /start ကို ပြန်နှိပ်နိုင်ပါတယ်ဗျာ။"
         bot.reply_to(message, response_text, parse_mode="Markdown")
@@ -98,7 +96,6 @@ def handle_messages(message):
     except ValueError:
         bot.reply_to(message, "❌ ကျေးဇူးပြု၍ ဂဏန်းသီးသန့်သာ ရိုက်ပို့ပေးပါဗျာ။\n(ဥပမာ - 5000)")
 
-# အစ်ကို့ရဲ့ bot.py အောက်ဆုံး စာကြောင်းတွေကို ဒါလေးနဲ့ အစားထိုးပေးပါ
 if __name__ == "__main__":
     import threading
     import http.server
@@ -111,10 +108,8 @@ if __name__ == "__main__":
         with socketserver.TCPServer(("0.0.0.0", port), handler) as httpd:
             httpd.serve_forever()
 
-    # Port ဆာဗာကို Thread အဖြစ် သီးသန့်ပတ်ထားမည်
     threading.Thread(target=run_dummy_server, daemon=True).start()
 
     print("Bot Is Starting with Port Bypass...")
     bot.remove_webhook()
     bot.infinity_polling()
-
