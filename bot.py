@@ -76,10 +76,21 @@ def handle_messages(message):
             data_list = PHP_DATA
             title = f"🇵🇭 **PHP တွက်ချက်မှုရလဒ်**\n💵 ဈေးနှုန်း: {price:,.0f} MMK\n🔢 အမြှောက်ဆ: {multiplier:.4f}\n"
 
-        response_text = title + "━━━━━━━━━━━━━━━━━━━━\n"
+                response_text = title + "━━━━━━━━━━━━━━━━━━━━\n"
         for item, coin in data_list:
-            total_coin = coin * multiplier
-            response_text += f"• **{item}** : {total_coin:,.2f} Coins\n"
+            # ၁။ Coin အစား ကျသင့်မည့် မြန်မာငွေ (MMK) ကို ရှာသည်
+            # (Item ရဲ့ Coin တန်ဖိုးကို အစ်ကိုရိုက်လိုက်တဲ့ ပိုက်ဆံနဲ့ မြှောက်တာပါ)
+            total_mmk = coin * price  
+            
+            # ၂။ ရာဂဏန်းအထိ ဖြတ်ခြင်း (အနီးစပ်ဆုံး ရာပြည့်ကိန်းဖြစ်အောင် ဝိုင်းပေးခြင်း)
+            # ဥပမာ - ၁၂,၃၄၅ ကျပ် ဖြစ်နေရင် ၁၂,၃၀၀ ဖြစ်သွားပါမည်
+            rounded_mmk = round(total_mmk / 100) * 100
+            
+            # ၃။ အဖြေထုတ်မည့် စာသား (Coins အစား MMK လို့ ပြောင်းပြပါမည်)
+            response_text += f"• **{item}** : {rounded_mmk:,.0f} MMK\n"
+            
+        response_text += "━━━━━━━━━━━━━━━━━━━━\n🔄 ထပ်မံတွက်ချက်လိုပါက /start ကို ပြန်နှိပ်နိုင်ပါတယ်ဗျာ။"
+
             
         response_text += "━━━━━━━━━━━━━━━━━━━━\n🔄 ထပ်မံတွက်ချက်လိုပါက /start ကို ပြန်နှိပ်နိုင်ပါတယ်ဗျာ။"
         bot.reply_to(message, response_text, parse_mode="Markdown")
