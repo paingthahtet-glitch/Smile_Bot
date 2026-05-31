@@ -4,7 +4,7 @@ import math  # အပေါ်ဂဏန်းသို့ အမြဲပို�
 from telebot.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 # အစ်ကို့ရဲ့ Bot Token
-TOKEN = "8170909194:AAHBY2X2_cHMttxAT4qIL1UHq39eXWlhA3g"
+TOKEN = "8914326548:AAGBL9kxT13vTzeiTdRx9IwRQ3gF99Z42no"
 bot = telebot.TeleBot(TOKEN)
 
 # ယာယီ Data မှတ်မည့်နေရာ
