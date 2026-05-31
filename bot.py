@@ -66,8 +66,8 @@ def send_welcome(message):
         del user_status[chat_id]
         
     markup = InlineKeyboardMarkup()
-    btn_brl = InlineKeyboardButton("Brl 🇧🇷 (Brazil Region)", callback_data="set_brl")
-    btn_php = InlineKeyboardButton("PHP 🇵🇭 (Philippines Region)", callback_data="set_php")
+    btn_brl = InlineKeyboardButton("Brl 🇧🇷", callback_data="set_brl")
+    btn_php = InlineKeyboardButton("PHP 🇵🇭", callback_data="set_php")
     markup.add(btn_brl, btn_php)
     
     bot.send_message(chat_id, "👋 **Smile One Code ဈေးနှုန်းတွက်ချက်စနစ်**\n\nတွက်ချက်လိုသော Currency Region ကို ရွေးချယ်ပေးပါဗျာ။", reply_markup=markup)
@@ -77,10 +77,10 @@ def callback_listener(call):
     chat_id = call.message.chat.id
     if call.data == "set_brl":
         user_status[chat_id] = {"currency": "BRL"}
-        bot.edit_message_text("✅ **Brl 🇧🇷** ကို ရွေးချယ်ပြီးပါပြီ။\n\nSmile One မှ ဝယ်ယူခဲ့သည့် **ကုဒ်ဝယ်ဈေးနှုန်း (ဂဏန်းသီးသန့်)** ကို ရိုက်ထည့်ပေးပါဗျာ။", chat_id, call.message.message_id, parse_mode="Markdown")
+        bot.edit_message_text("✅ **Brl 🇧🇷** ကို ရွေးချယ်ပြီးပါပြီ။\n\nSmile One မှ ဝယ်ယူခဲ့သည့် **ကုဒ်ဝယ်ဈေးနှုန်း (ဂဏန်းသီးသန့်)** ကို ရိုက်ထည့်ပေးပါ။", chat_ id, call.message.message_id, parse_mode="Markdown")
     elif call.data == "set_php":
         user_status[chat_id] = {"currency": "PHP"}
-        bot.edit_message_text("✅ **PHP 🇵🇭** ကို ရွေးချယ်ပြီးပါပြီ။\n\nSmile One မှ ဝယ်ယူခဲ့သည့် **ကုဒ်ဝယ်ဈေးနှုန်း (ဂဏန်းသီးသန့်)** ကို ရိုက်ထည့်ပေးပါဗျာ။", chat_id, call.message.message_id, parse_mode="Markdown")
+        bot.edit_message_text("✅ **PHP 🇵🇭** ကို ရွေးချယ်ပြီးပါပြီ။\n\nSmile One မှ ဝယ်ယူခဲ့သည့် **ကုဒ်ဝယ်ဈေးနှုန်း (ဂဏန်းသီးသန့်)** ကို ရိုက်ထည့်ပေးပါ။", chat_id, call.message.message_id, parse_mode="Markdown")
 
 @bot.message_handler(func=lambda message: True)
 def handle_messages(message):
@@ -153,7 +153,7 @@ def calculate_game_price(call):
     name_map = {"MLBB": "Mobile Legends 💎", "MCGG": "Magic Chess Go Go ♟️", "PUBG": "PUBG Mobile 💸", "WWM": "Where Winds Meet 🍃", "BLOOD": "Blood Strike 💥", "ARENA": "Arena Breakout 📦", "RACING": "Racing Master 🏎️", "HOK": "Honor of Kings 👑"}
     display_name = name_map.get(game_name, game_name)
 
-    title = f"{flag} **{display_name} ({currency})**\n💵 ဝယ်ဈေး: {price:,.0f} MMK\n🔢 1Coin ဈေး: {multiplier:.4f} MMK\n📈 အမြတ်: +10%\n"
+    title = f"{flag} **{display_name} ({currency})**\n💵 ဝယ်ဈေး: {price:,.0f} MMK\n🔢 1Coin : {multiplier:.4f} MMK\n"
     response_text = title + "━━━━━━━━━━━━━━━━━━━━\n"
     
     # ရွေးချယ်လိုက်သော ဂိမ်းတစ်ခုတည်း၏ Item များကိုသာ ဆွဲထုတ်တွက်ချက်ခြင်း
