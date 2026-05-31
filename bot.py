@@ -8,33 +8,45 @@ bot = telebot.TeleBot(TOKEN)
 
 user_status = {}
 
-# 💡 Smile One ရှိ ဂိမ်း (၈) ခု၏ ပုံသေ Coin/Diamond သတ်မှတ်ချက်ဇယား
-# အစ်ကိုကြီးအနေဖြင့် Coin ပမာဏများကို မိမိစိတ်ကြိုက် လွတ်လပ်စွာ ပြင်ဆင်/တိုးချဲ့နိုင်ပါသည်
+# 💡 Smile One ရှိ ဂိမ်းများ၏ ပုံသေ Coin/Diamond သတ်မှတ်ချက်ဇယား
 GAME_DATA = {
     # --- BRL REGION GAMES 🇧🇷 ---
     "MLBB_BRL": [
-        ("Weekly Pass", 76.0), ("Elite Bundle", 39.0), ("Epic", 196.5),
+        ("Weekly Pass", 76.0), ("Elite Bundle", 39.0), ("Epic Bundle", 196.5),
         ("50+5 Diamonds", 39.0), ("150+15 Diamonds", 116.9), ("250+25 Diamonds", 187.5),
         ("86 Diamonds", 61.5), ("172 Diamonds", 122.0), ("706 Diamonds", 480.0),
         ("2195 Diamonds", 1453.0), ("3688 Diamonds", 2424.0), ("Twilight Pass", 402.5)
     ],
     "MCGG_BRL": [
-        ("Weekly Pass", 76.0), ("100 Coins", 39.0), ("300 Coins", 116.9), ("500 Coins", 187.5)
+        ("Weekly Pass", 99.9), 
+        ("Lukas Battle Reward (Lv.3)", 40.0), 
+        ("Battle for Discounts (Lv.5)", 40.0),
+        ("86 Diamonds", 62.5), ("172 Diamonds", 125.0), ("257 Diamonds", 187.0), 
+        ("344 Diamonds", 250.0), ("516 Diamonds", 375.0), ("706 Diamonds", 500.0), 
+        ("1346 Diamonds", 937.5), ("1825 Diamonds", 1250.0), ("2195 Diamonds", 1500.0), 
+        ("3688 Diamonds", 2500.0), ("5532 Diamonds", 3750.0), ("9288 Diamonds", 6250.0), 
+        ("Elite Bundle", 40.0), ("Epic Bundle", 40.0), ("50+5", 40.0), 
+        ("150+15", 120.0), ("250+25", 200.0), ("500+65", 400.0)
     ],
     "PUBG_BRL": [
-        ("60 UC", 39.0), ("325 UC", 196.5), ("660 UC", 393.0), ("1800 UC", 982.5)
+        ("60 UC", 47.9), ("325 UC", 242.0), ("660 UC", 484.4), 
+        ("1800 UC", 1212.1), ("3850 UC", 2425.3), ("8100 UC", 4850.5)
     ],
     "WWM_BRL": [
-        ("60 Crystals", 39.0), ("300 Crystals", 196.5), ("600 Crystals", 393.0)
+        ("60 Echo Beads", 58.4), ("180 Echo Beads", 168.2), ("300 Echo Beads", 282.0),
+        ("600 Echo Beads", 563.0), ("900 Echo Beads", 850.0), ("1800 Echo Beads", 1691.1),
+        ("3000 Echo Beads", 2819.1), ("6000 Echo Beads", 5639.2), ("12000 Echo Beads", 11279.3),
+        ("Monthly Pass", 282.0), ("Elite Battle Pass", 513.6), ("Premium Battle Pass", 958.8)
     ],
     "BLOOD_BRL": [
-        ("60 Gold", 39.0), ("330 Gold", 196.5), ("660 Gold", 393.0)
+        ("116 Gold", 48.0), ("352 Gold", 146.0), ("594 Gold", 244.0), 
+        ("1210 Gold", 489.0), ("2486 Gold", 979.0), ("6380 Gold", 2449.0)
     ],
-    "ARENA_BRL": [
-        ("60 Bonds", 39.0), ("310 Bonds", 196.5), ("630 Bonds", 393.0)
-    ],
-    "RACING_BRL": [
-        ("60 Gems", 39.0), ("300 Gems", 196.5), ("600 Gems", 393.0)
+    "HOK_BRL": [
+        ("16 Tokens", 9.6), ("80 Tokens", 46.9), ("240 Tokens", 141.3), 
+        ("400 Tokens", 235.7), ("560 Tokens", 330.0), ("830 Tokens", 471.3), 
+        ("1245 Tokens", 707.5), ("2508 Tokens", 1415.0), ("4180 Tokens", 2358.7), 
+        ("8360 Tokens", 4717.8)
     ],
 
     # --- PHP REGION GAMES 🇵🇭 ---
@@ -44,19 +56,25 @@ GAME_DATA = {
         ("223 Diamonds", 190.0), ("336 Diamonds", 285.0), ("570 Diamonds", 475.0),
         ("1163 Diamonds", 950.0), ("2398 Diamonds", 1900.0), ("Twilight Pass", 475.0)
     ],
+    "MCGG_PHP": [
+        ("Weekly Pass", 95.0), ("Lucas", 47.45), ("Premium", 47.45),
+        ("Diamond 50+5", 47.45), ("Diamond 150+15", 140.6), ("Diamond 250+25", 233.7),
+        ("Diamond 500+65", 473.1), ("Diamond 5", 4.75), ("Diamond 11", 9.03),
+        ("Diamond 22", 18.05), ("Diamond 56", 45.13), ("Diamond 112", 90.25),
+        ("Diamond 223", 180.5), ("Diamond 339", 270.75), ("Diamond 570", 451.25),
+        ("Diamond 1163", 902.5), ("Diamond 2398", 1895.0), ("Diamond 6042", 4512.5)
+    ],
     "HOK_PHP": [
-        ("8 Tokens", 6.5), ("88 Tokens", 47.5), ("432 Tokens", 233.7), 
-        ("896 Tokens", 475.0), ("2496 Tokens", 1187.8), ("4496 Tokens", 2138.0)
+        ("16 Tokens", 11.69), ("80 Tokens", 59.07), ("240 Tokens", 117.82), 
+        ("400 Tokens", 296.58), ("560 Tokens", 415.33), ("830 Tokens", 593.16), 
+        ("1245 Tokens", 890.35), ("2508 Tokens", 1780.71), ("4180 Tokens", 2968.25), 
+        ("8360 Tokens", 5937.12)
     ],
     "PUBG_PHP": [
-        ("60 UC", 47.5), ("325 UC", 233.7), ("660 UC", 475.0), ("1800 UC", 1187.8)
-    ],
-    "BLOOD_PHP": [
-        ("60 Gold", 47.5), ("330 Gold", 233.7), ("660 Gold", 475.0)
-    ],
-    "ARENA_PHP": [
-        ("60 Bonds", 47.5), ("310 Bonds", 233.7), ("630 Bonds", 475.0)
+        ("60 UC", 59.07), ("325 UC", 297.81), ("660 UC", 596.23), 
+        ("1800 UC", 1491.51), ("3850 UC", 2957.18), ("8100 UC", 5914.35)
     ]
+    # ✂️ Arena Breakout, Blood Strike ဒေတာများကို PHP Region မှ ဖယ်ရှားလိုက်ပါပြီ
 }
 
 @bot.message_handler(commands=['start'])
@@ -66,21 +84,21 @@ def send_welcome(message):
         del user_status[chat_id]
         
     markup = InlineKeyboardMarkup()
-    btn_brl = InlineKeyboardButton("Brl 🇧🇷 (Brazil Region)", callback_data="set_brl")
-    btn_php = InlineKeyboardButton("PHP 🇵🇭 (Philippines Region)", callback_data="set_php")
+    btn_brl = InlineKeyboardButton("Brl 🇧🇷", callback_data="set_brl")
+    btn_php = InlineKeyboardButton("PHP 🇵🇭", callback_data="set_php")
     markup.add(btn_brl, btn_php)
     
-    bot.send_message(chat_id, "👋 **Smile One Code ဈေးနှုန်းတွက်ချက်စနစ်**\n\nတွက်ချက်လိုသော Currency Region ကို ရွေးချယ်ပေးပါဗျာ။", reply_markup=markup)
+    bot.send_message(chat_id, "👋 **Smile One Code ဈေးနှုန်း**\n\nတွက်ချက်လိုသော Currency Region ကို ရွေးချယ်ပေးပါဗျာ။", reply_markup=markup)
 
 @bot.callback_query_handler(func=lambda call: call.data in ["set_brl", "set_php"])
 def callback_listener(call):
     chat_id = call.message.chat.id
     if call.data == "set_brl":
         user_status[chat_id] = {"currency": "BRL"}
-        bot.edit_message_text("✅ **Brl 🇧🇷** ကို ရွေးချယ်ပြီးပါပြီ။\n\nSmile One မှ ဝယ်ယူခဲ့သည့် **ကုဒ်ဝယ်ဈေးနှုန်း (ဂဏန်းသီးသန့်)** ကို ရိုက်ထည့်ပေးပါဗျာ။", chat_id, call.message.message_id, parse_mode="Markdown")
+        bot.edit_message_text("✅ **Brl 🇧🇷** ကို ရွေးချယ်ပြီးပါပြီ။\n\nSmile One မှ ဝယ်ယူခဲ့သည့် **ကုဒ်ဝယ်ဈေးနှုန်း (ဂဏန်းသီးသန့်)** ကို ရိုက်ထည့်ပေးပါ။", chat_id, call.message.message_id, parse_mode="Markdown")
     elif call.data == "set_php":
         user_status[chat_id] = {"currency": "PHP"}
-        bot.edit_message_text("✅ **PHP 🇵🇭** ကို ရွေးချယ်ပြီးပါပြီ။\n\nSmile One မှ ဝယ်ယူခဲ့သည့် **ကုဒ်ဝယ်ဈေးနှုန်း (ဂဏန်းသီးသန့်)** ကို ရိုက်ထည့်ပေးပါဗျာ။", chat_id, call.message.message_id, parse_mode="Markdown")
+        bot.edit_message_text("✅ **PHP 🇵🇭** ကို ရွေးချယ်ပြီးပါပြီ။\n\nSmile One မှ ဝယ်ယူခဲ့သည့် **ကုဒ်ဝယ်ဈေးနှုန်း (ဂဏန်းသီးသန့်)** ကို ရိုက်ထည့်ပေးပါ။", chat_id, call.message.message_id, parse_mode="Markdown")
 
 @bot.message_handler(func=lambda message: True)
 def handle_messages(message):
@@ -100,26 +118,23 @@ def handle_messages(message):
         user_status[chat_id]["price"] = price
         currency = user_status[chat_id]["currency"]
 
-        # 💡 ဝယ်ဈေးရိုက်ပြီးပါက Smile One ဂိမ်းများကို Inline Menu ဖြင့် ပြသခြင်း
-        markup = InlineKeyboardMarkup(row_width=2)
-        
         if currency == "BRL":
+            markup = InlineKeyboardMarkup(row_width=2)
             markup.add(
                 InlineKeyboardButton("⚔️ Mobile Legends", callback_data="main_MLBB_BRL"),
                 InlineKeyboardButton("♟️ Magic Chess Go Go", callback_data="main_MCGG_BRL"),
                 InlineKeyboardButton("🪂 PUBG Mobile", callback_data="main_PUBG_BRL"),
                 InlineKeyboardButton("🍃 Where Winds Meet", callback_data="main_WWM_BRL"),
                 InlineKeyboardButton("💥 Blood Strike", callback_data="main_BLOOD_BRL"),
-                InlineKeyboardButton("📦 Arena Breakout", callback_data="main_ARENA_BRL"),
-                InlineKeyboardButton("🏎️ Racing Master", callback_data="main_RACING_BRL")
+                InlineKeyboardButton("👑 Honor of Kings", callback_data="main_HOK_BRL")
             )
-        else: # PHP
+        else: # PHP (တောင်းဆိုချက်အရ ၃ ခုသာ ချန်လှပ်ထားပြီး row_width=1 ညှိပေးထားပါသည်)
+            markup = InlineKeyboardMarkup(row_width=1)
             markup.add(
                 InlineKeyboardButton("⚔️ Mobile Legends", callback_data="main_MLBB_PHP"),
+                InlineKeyboardButton("♟️ Magic Chess Go Go", callback_data="main_MCGG_PHP"),
                 InlineKeyboardButton("👑 Honor of Kings", callback_data="main_HOK_PHP"),
-                InlineKeyboardButton("🪂 PUBG Mobile", callback_data="main_PUBG_PHP"),
-                InlineKeyboardButton("💥 Blood Strike", callback_data="main_BLOOD_PHP"),
-                InlineKeyboardButton("📦 Arena Breakout", callback_data="main_ARENA_PHP")
+                InlineKeyboardButton("🪂 PUBG Mobile", callback_data="main_PUBG_PHP")
             )
 
         bot.send_message(chat_id, f"💵 ဝယ်ဈေး **{price:,.0f} MMK** အတွက် ဈေးနှုန်းကြည့်လိုသော **ဂိမ်းအမျိုးအစား** ကို ရွေးချယ်ပေးပါဗျာ။", reply_markup=markup)
@@ -139,7 +154,6 @@ def calculate_game_price(call):
     price = user_status[chat_id]["price"]
     currency = user_status[chat_id]["currency"]
     
-    # Smile One မူရင်း Coin ပုံသေနည်းအတိုင်း 1 Coin တန်ဖိုးတွက်ခြင်း
     if currency == "BRL":
         multiplier = price / 1000.0
         flag = "🇧🇷"
@@ -149,14 +163,12 @@ def calculate_game_price(call):
         
     game_name = game_key.split("_")[0]
     
-    # ဂိမ်းအမည်များကို ဖတ်ရလွယ်အောင် ပြန်ပြင်ပေးခြင်း
-    name_map = {"MLBB": "Mobile Legends 💎", "MCGG": "Magic Chess Go Go ♟️", "PUBG": "PUBG Mobile 💸", "WWM": "Where Winds Meet 🍃", "BLOOD": "Blood Strike 💥", "ARENA": "Arena Breakout 📦", "RACING": "Racing Master 🏎️", "HOK": "Honor of Kings 👑"}
+    name_map = {"MLBB": "Mobile Legends 💎", "MCGG": "Magic Chess Go Go ♟️", "PUBG": "PUBG Mobile 💸", "WWM": "Where Winds Meet 🍃", "BLOOD": "Blood Strike 💥", "HOK": "Honor of Kings 👑"}
     display_name = name_map.get(game_name, game_name)
 
-    title = f"{flag} **{display_name} ({currency})**\n💵 ဝယ်ဈေး: {price:,.0f} MMK\n🔢 1Coin ဈေး: {multiplier:.4f} MMK\n📈 အမြတ်: +10%\n"
+    title = f"{flag} **{display_name} ({currency})**\n💵 ဝယ်ဈေး: {price:,.0f} MMK\n🔢 1Coin : {multiplier:.4f} MMK\n"
     response_text = title + "━━━━━━━━━━━━━━━━━━━━\n"
     
-    # ရွေးချယ်လိုက်သော ဂိမ်းတစ်ခုတည်း၏ Item များကိုသာ ဆွဲထုတ်တွက်ချက်ခြင်း
     if game_key in GAME_DATA:
         for item, coin in GAME_DATA[game_key]:
             cost_mmk = coin * multiplier  
