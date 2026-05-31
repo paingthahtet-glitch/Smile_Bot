@@ -12,7 +12,7 @@ user_status = {}
 GAME_DATA = {
     # --- BRL REGION GAMES 🇧🇷 ---
     "MLBB_BRL": [
-        ("Weekly Pass", 76.0), ("Elite Bundle", 39.0), ("Epic", 196.5),
+        ("Weekly Pass", 76.0), ("Elite Bundle", 39.0), ("Epic Bundle", 196.5),
         ("50+5 Diamonds", 39.0), ("150+15 Diamonds", 116.9), ("250+25 Diamonds", 187.5),
         ("86 Diamonds", 61.5), ("172 Diamonds", 122.0), ("706 Diamonds", 480.0),
         ("2195 Diamonds", 1453.0), ("3688 Diamonds", 2424.0), ("Twilight Pass", 402.5)
@@ -69,7 +69,7 @@ def send_welcome(message):
     btn_php = InlineKeyboardButton("PHP 🇵🇭", callback_data="set_php")
     markup.add(btn_brl, btn_php)
     
-    bot.send_message(chat_id, "👋 **Smile One Code ဈေးနှုန်းတွက်ချက်စနစ်**\n\nတွက်ချက်လိုသော Currency Region ကို ရွေးချယ်ပေးပါဗျာ။", reply_markup=markup)
+    bot.send_message(chat_id, "👋 **Smile One Code ဈေးနှုန်း**\n\nတွက်ချက်လိုသော Currency Region ကို ရွေးချယ်ပေးပါဗျာ။", reply_markup=markup)
 
 @bot.callback_query_handler(func=lambda call: call.data in ["set_brl", "set_php"])
 def callback_listener(call):
