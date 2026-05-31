@@ -9,7 +9,6 @@ bot = telebot.TeleBot(TOKEN)
 user_status = {}
 
 # 💡 Smile One ရှိ ဂိမ်း (၈) ခု၏ ပုံသေ Coin/Diamond သတ်မှတ်ချက်ဇယား
-# အစ်ကိုကြီးအနေဖြင့် Coin ပမာဏများကို မိမိစိတ်ကြိုက် လွတ်လပ်စွာ ပြင်ဆင်/တိုးချဲ့နိုင်ပါသည်
 GAME_DATA = {
     # --- BRL REGION GAMES 🇧🇷 ---
     "MLBB_BRL": [
@@ -77,7 +76,7 @@ def callback_listener(call):
     chat_id = call.message.chat.id
     if call.data == "set_brl":
         user_status[chat_id] = {"currency": "BRL"}
-        bot.edit_message_text("✅ **Brl 🇧🇷** ကို ရွေးချယ်ပြီးပါပြီ။\n\nSmile One မှ ဝယ်ယူခဲ့သည့် **ကုဒ်ဝယ်ဈေးနှုန်း (ဂဏန်းသီးသန့်)** ကို ရိုက်ထည့်ပေးပါ။", chat_ id, call.message.message_id, parse_mode="Markdown")
+        bot.edit_message_text("✅ **Brl 🇧🇷** ကို ရွေးချယ်ပြီးပါပြီ။\n\nSmile One မှ ဝယ်ယူခဲ့သည့် **ကုဒ်ဝယ်ဈေးနှုန်း (ဂဏန်းသီးသန့်)** ကို ရိုက်ထည့်ပေးပါ။", chat_id, call.message.message_id, parse_mode="Markdown")
     elif call.data == "set_php":
         user_status[chat_id] = {"currency": "PHP"}
         bot.edit_message_text("✅ **PHP 🇵🇭** ကို ရွေးချယ်ပြီးပါပြီ။\n\nSmile One မှ ဝယ်ယူခဲ့သည့် **ကုဒ်ဝယ်ဈေးနှုန်း (ဂဏန်းသီးသန့်)** ကို ရိုက်ထည့်ပေးပါ။", chat_id, call.message.message_id, parse_mode="Markdown")
